@@ -13,11 +13,12 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
     """
     Global exception handler that formats all errors into a standardized response.
     """
-    # Handle custom exceptions
-    if isinstance(exc, FileUploadError):
-        return await handle_file_upload_error(exc)
+    # Explicitly handle our custom FileNotFoundError first
     if isinstance(exc, FileNotFoundError):
         return await handle_file_not_found_error(exc)
+    
+    if isinstance(exc, FileUploadError):
+        return await handle_file_upload_error(exc)
 
     # Handle FastAPI's built-in validation errors
     if isinstance(exc, RequestValidationError):
@@ -30,7 +31,7 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
     # Handle all other unexpected errors
     return await handle_unexpected_error(exc)
 
-# --- Helper functions for specific error types ---
+# --- Helper functions remain the same ---
 
 async def handle_file_upload_error(exc: FileUploadError) -> JSONResponse:
     logger.error(f"File upload error: {str(exc)}")

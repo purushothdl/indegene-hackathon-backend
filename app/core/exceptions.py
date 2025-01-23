@@ -1,5 +1,4 @@
-
-### File Exceptions
+### app/core/exceptions.py
 class FileUploadError(Exception):
     """Raised when file upload fails."""
     pass

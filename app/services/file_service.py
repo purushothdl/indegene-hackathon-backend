@@ -1,8 +1,9 @@
+### app/services/file_service.py
 from typing import Dict, List
 from fastapi import UploadFile
 from app.repositories.file_repository import FileRepository
 from app.core.google_cloud_storage import gcs
-from app.core.exceptions import FileUploadError
+from app.core.exceptions import FileUploadError, FileNotFoundError
 import uuid
 
 class FileService:
